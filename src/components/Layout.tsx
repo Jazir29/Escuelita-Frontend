@@ -1,15 +1,24 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Package, LayoutDashboard, Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Package, LayoutDashboard, Menu, X, LogOut} from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
+const { logout } = useAuth();
+
+const handleLogout = async () => {
+  await logout();
+  navigate('/login');
+};
+
   const navItems = [
-    { path: '/my-orders', label: 'Mis Ordenes', icon: ShoppingCart },
-    { path: '/products', label: 'Productos', icon: Package },
+    { path: '/my-orders', label: 'My Orders', icon: ShoppingCart },
+    { path: '/products', label: 'Products', icon: Package },
   ];
 
   return (
@@ -20,10 +29,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center text-white">
             <LayoutDashboard size={24} />
           </div>
-          <span className="font-bold text-xl tracking-tight">Ordenes App</span>
+          <span className="font-bold text-xl tracking-tight">OrderFlow</span>
         </div>
 
-        <nav className="space-y-1">
+        <nav className="flex-1 space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
@@ -43,6 +52,16 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             );
           })}
         </nav>
+
+        <div className="pt-6 border-t border-zinc-100">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all"
+          >
+            <LogOut size={20} />
+            <span className="font-medium">Logout</span>
+          </button>
+        </div>
       </aside>
 
       {/* Mobile Header */}
@@ -51,7 +70,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-white">
             <LayoutDashboard size={18} />
           </div>
-          <span className="font-bold text-lg">Ordenes App</span>
+          <span className="font-bold text-lg">OrderFlow</span>
         </div>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X /> : <Menu />}
@@ -83,6 +102,16 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 </Link>
               );
             })}
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                handleLogout();
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all"
+            >
+              <LogOut size={20} />
+              <span className="font-medium">Logout</span>
+            </button>
           </nav>
         </motion.div>
       )}

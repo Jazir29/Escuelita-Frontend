@@ -3,19 +3,34 @@ import { Layout } from './components/Layout';
 import { OrdersList } from './views/OrdersList';
 import { OrderEditor } from './views/OrderEditor';
 import { ProductManager } from './views/ProductManager';
+import { Login } from './views/Login';
+import { ProtectedRoute } from './components/ProtectedRoute'; // ← NUEVO
+import { AuthProvider } from './context/AuthContext'; // ← NUEVO
 
 export default function App() {
   return (
-    <Router>
-      <Layout>
+    <AuthProvider>  {/* ← envuelve todo */}
+      <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/my-orders" replace />} />
-          <Route path="/my-orders" element={<OrdersList />} />
-          <Route path="/add-order" element={<OrderEditor />} />
-          <Route path="/add-order/:id" element={<OrderEditor />} />
-          <Route path="/products" element={<ProductManager />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/my-orders" element={
+            <ProtectedRoute><Layout><OrdersList /></Layout></ProtectedRoute>
+          }/>
+          <Route path="/add-order" element={
+            <ProtectedRoute><Layout><OrderEditor /></Layout></ProtectedRoute>
+          }/>
+          <Route path="/add-order/:id" element={
+            <ProtectedRoute><Layout><OrderEditor /></Layout></ProtectedRoute>
+          }/>
+          <Route path="/products" element={
+            <ProtectedRoute><Layout><ProductManager /></Layout></ProtectedRoute>
+          }/>
+
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </Layout>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
