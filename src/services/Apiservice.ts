@@ -1,6 +1,6 @@
 import type { Order, Product } from '../types';
 
-const BASE_URL = 'http://localhost:3001/api';
+const BASE_URL = 'https://escuelita-backend.onrender.com/api';
 
 // Todas las peticiones incluyen credentials: 'include' para enviar la cookie JWT
 const fetchAuth = (url: string, options: RequestInit = {}) =>
