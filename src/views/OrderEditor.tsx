@@ -82,25 +82,29 @@ export const OrderEditor: React.FC = () => {
   };
 
   const handleSave = async () => {
-    if (items.length === 0) return alert('Por favor agrega al menos un producto');
+  if (items.length === 0) return alert('Por favor agrega al menos un producto');
 
-    setSaving(true);
-    try {
-      const orderData: any = {
-        date,
-        items,
-        status,
-      };
-      if (isEdit) orderData.id = parseInt(id!);
+  setSaving(true);
+  try {
+    const orderData: any = {
+      date,
+      order_number: orderNumber, // ✅ Bug 1 corregido
+      items: items.map(item => ({ // ✅ Bug 2 corregido
+        product_id: item.product_id,
+        qty: item.quantity,       // renombrar quantity → qty
+      })),
+      status,
+    };
+    if (isEdit) orderData.id = parseInt(id!);
 
-      await storageService.saveOrder(orderData);
-      navigate('/my-orders');
-    } catch (err: any) {
-      alert(err.message);
-    } finally {
-      setSaving(false);
-    }
-  };
+    await storageService.saveOrder(orderData);
+    navigate('/my-orders');
+  } catch (err: any) {
+    alert(err.message);
+  } finally {
+    setSaving(false);
+  }
+};
 
   const totalPrice = items.reduce((sum, item) => sum + item.quantity * item.unit_price, 0);
   const isCompleted = status === 'Completed';
