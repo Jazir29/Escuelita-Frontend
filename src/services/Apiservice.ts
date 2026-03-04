@@ -70,17 +70,21 @@ export const storageService = {
   },
 
   saveOrder: async (order: Omit<Order, 'id'> & { id?: number }): Promise<Order> => {
-    const body = {
+    const body: any = {
       date: order.date,
       items: (order.items ?? []).map((i: any) => ({
         product_id: i.product_id,
-        qty: i.quantity,
-        unit_price: i.unit_price,
+        qty: i.qty ?? i.quantity,
       })),
     };
+
+    // ✅ Solo enviamos order_number si es una edición
+    if (order.id) body.order_number = order.order_number;
+
     const res = order.id
       ? await fetchAuth(`${BASE_URL}/orders/${order.id}`, { method: 'PUT', body: JSON.stringify(body) })
       : await fetchAuth(`${BASE_URL}/orders`, { method: 'POST', body: JSON.stringify(body) });
+
     if (!res.ok) { const e = await res.json(); throw new Error(e.message); }
     return mapOrder(await res.json());
   },
