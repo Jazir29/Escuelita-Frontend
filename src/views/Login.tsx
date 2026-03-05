@@ -265,12 +265,12 @@ export const Login: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
-                      type={showPassword ? 'text' : 'password'}
+                      type={showRegPassword  ? 'text' : 'password'}
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={regPassword}
+                      onChange={(e) => setRegPassword(e.target.value)}
                       className="input-field pr-10"
-                      placeholder="Minimo 6 caracteres"
+                      placeholder="Minimo 8 caracteres"
                     />
                     <button type="button" onClick={() => setShowRegPassword(!showRegPassword)}
                       className="absolute right-3 top-0 h-full flex items-center text-zinc-400 hover:text-zinc-700">
@@ -286,10 +286,10 @@ export const Login: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
-                      type={showPassword ? 'text' : 'password'}
+                      type={showConfirmPassword  ? 'text' : 'password'}
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       className="input-field pr-10"
                       placeholder="••••••••"
                     />
