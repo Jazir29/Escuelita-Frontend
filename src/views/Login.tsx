@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Mail, ArrowRight, User ,Eye, EyeOff} from 'lucide-react';
+import { LayoutDashboard, Mail, Lock, ArrowRight, User ,Eye, EyeOff} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/authService';
@@ -176,6 +176,10 @@ export const Login: React.FC = () => {
                 </div>
 
                 <div className="relative">
+                <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
+                  <Lock size={16} className="text-zinc-400" />
+                  Contraseña
+                </label>
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
@@ -250,6 +254,10 @@ export const Login: React.FC = () => {
                 </div>
 
                 <div className="relative">
+                <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
+                  <Lock size={16} className="text-zinc-400" />
+                  Contraseña
+                </label>
                   <input
                     type={showRegPassword ? 'text' : 'password'}
                     required
@@ -265,6 +273,10 @@ export const Login: React.FC = () => {
                 </div>
 
                 <div className="relative">
+                <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
+                  <Lock size={16} className="text-zinc-400" />
+                  Contraseña
+                </label>
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
                     required
