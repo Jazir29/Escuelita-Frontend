@@ -49,6 +49,9 @@ export const Login: React.FC = () => {
     setError('');
     setSuccess('');
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(regEmail))
+      return setError('Ingresa un correo electrónico válido');
     if (regPassword !== confirmPassword)
       return setError('Las contraseñas no coinciden');
     if (regPassword.length < 6)
@@ -213,6 +216,7 @@ export const Login: React.FC = () => {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.2 }}
                 onSubmit={handleRegister}
+                noValidate
                 className="space-y-5"
               >
                 <div className="space-y-2">
