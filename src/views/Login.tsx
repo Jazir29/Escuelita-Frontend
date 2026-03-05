@@ -54,8 +54,11 @@ export const Login: React.FC = () => {
       return setError('Ingresa un correo electrónico válido');
     if (regPassword !== confirmPassword)
       return setError('Las contraseñas no coinciden');
-    if (regPassword.length < 6)
-      return setError('La contraseña debe tener al menos 6 caracteres');
+    if (regPassword.length < 8)
+      return setError('La contraseña debe tener al menos 8 caracteres');
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    if (!passwordRegex.test(regPassword))
+      return setError('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo');
 
     setIsLoading(true);
     try {
@@ -175,23 +178,25 @@ export const Login: React.FC = () => {
                   />
                 </div>
 
-                <div className="relative">
-                <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
-                  <Lock size={16} className="text-zinc-400" />
-                  Contraseña
-                </label>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="input-field pr-10"
-                    placeholder="••••••••"
-                  />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700">
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
+                    <Lock size={16} className="text-zinc-400" />
+                    Contraseña
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="input-field pr-10"
+                      placeholder="••••••••"
+                    />
+                    <button type="button" onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-0 h-full flex items-center text-zinc-400 hover:text-zinc-700">
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
                 </div>
 
                 <button
@@ -253,42 +258,46 @@ export const Login: React.FC = () => {
                   />
                 </div>
 
-                <div className="relative">
-                <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
-                  <Lock size={16} className="text-zinc-400" />
-                  Contraseña
-                </label>
-                  <input
-                    type={showRegPassword ? 'text' : 'password'}
-                    required
-                    value={regPassword}
-                    onChange={(e) => setRegPassword(e.target.value)}
-                    className="input-field pr-10"
-                    placeholder="Mínimo 6 caracteres"
-                  />
-                  <button type="button" onClick={() => setShowRegPassword(!showRegPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700">
-                    {showRegPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
+                    <Lock size={16} className="text-zinc-400" />
+                    Contraseña
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="input-field pr-10"
+                      placeholder="Minimo 6 caracteres"
+                    />
+                    <button type="button" onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-0 h-full flex items-center text-zinc-400 hover:text-zinc-700">
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
                 </div>
 
-                <div className="relative">
-                <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
-                  <Lock size={16} className="text-zinc-400" />
-                  Contraseña
-                </label>
-                  <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="input-field pr-10"
-                    placeholder="••••••••"
-                  />
-                  <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700">
-                    {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
+                    <Lock size={16} className="text-zinc-400" />
+                    Confirmar Contraseña
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="input-field pr-10"
+                      placeholder="••••••••"
+                    />
+                    <button type="button" onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-0 h-full flex items-center text-zinc-400 hover:text-zinc-700">
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
                 </div>
 
                 <button
