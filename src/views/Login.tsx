@@ -57,8 +57,8 @@ export const Login: React.FC = () => {
     if (regPassword.length < 8)
       return setError('La contraseña debe tener al menos 8 caracteres');
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-    if (!passwordRegex.test(regPassword))
-      return setError('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo');
+      if (!passwordRegex.test(regPassword))
+        return setError('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo');
 
     setIsLoading(true);
     try {
@@ -272,9 +272,9 @@ export const Login: React.FC = () => {
                       className="input-field pr-10"
                       placeholder="Minimo 6 caracteres"
                     />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)}
+                    <button type="button" onClick={() => setShowRegPassword(!showRegPassword)}
                       className="absolute right-3 top-0 h-full flex items-center text-zinc-400 hover:text-zinc-700">
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showRegPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
                 </div>
@@ -293,9 +293,9 @@ export const Login: React.FC = () => {
                       className="input-field pr-10"
                       placeholder="••••••••"
                     />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)}
+                    <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute right-3 top-0 h-full flex items-center text-zinc-400 hover:text-zinc-700">
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
                 </div>
