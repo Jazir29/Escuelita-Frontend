@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Lock, Mail, ArrowRight, User } from 'lucide-react';
+import { LayoutDashboard, Mail, ArrowRight, User ,Eye, EyeOff} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/authService';
@@ -17,6 +17,11 @@ export const Login: React.FC = () => {
   const [regEmail, setRegEmail]       = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  //VER Y OCULTAR CONTRASEÑA
+  const [showPassword, setShowPassword]           = useState(false);
+  const [showRegPassword, setShowRegPassword]     = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError]         = useState('');
@@ -167,19 +172,19 @@ export const Login: React.FC = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
-                    <Lock size={16} className="text-zinc-400" />
-                    Contraseña
-                  </label>
+                <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="input-field"
+                    className="input-field pr-10"
                     placeholder="••••••••"
                   />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700">
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
                 </div>
 
                 <button
@@ -240,34 +245,34 @@ export const Login: React.FC = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
-                    <Lock size={16} className="text-zinc-400" />
-                    Contraseña
-                  </label>
+                <div className="relative">
                   <input
-                    type="password"
+                    type={showRegPassword ? 'text' : 'password'}
                     required
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
-                    className="input-field"
+                    className="input-field pr-10"
                     placeholder="Mínimo 6 caracteres"
                   />
+                  <button type="button" onClick={() => setShowRegPassword(!showRegPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700">
+                    {showRegPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
-                    <Lock size={16} className="text-zinc-400" />
-                    Confirmar contraseña
-                  </label>
+                <div className="relative">
                   <input
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="input-field"
+                    className="input-field pr-10"
                     placeholder="••••••••"
                   />
+                  <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700">
+                    {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
                 </div>
 
                 <button
